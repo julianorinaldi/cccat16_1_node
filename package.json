@@ -15,10 +15,16 @@
     "express": "^4.19.2",
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
+    "pg": "^8.11.5",
+    "pg-promise": "^11.6.0",
+    "pgp": "^0.1.0",
     "postgres": "^3.4.4",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.4",
     "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.4"
   }
 }

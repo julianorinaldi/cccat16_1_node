@@ -1,17 +1,16 @@
 import crypto from "crypto";
 import express from "express";
-import pgp from "pg-promise";
-import { validate } from "./validateCpf";
+import DBConnection from "../infraestructure/DBConnection";
 const app = express();
 app.use(express.json());
 
 app.post("/signup", async function (req, res) {
 	let result;
-	const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
+	const connection = DBConnection('postgres');
 	try {
 		const id = crypto.randomUUID();
 
-		const [acc] = await connection.query("select * from cccat15.account where email = $1", [req.body.email]);
+		const acc = await connection.query("select * from cccat16.account where email = $1", [req.body.email]);
 		if (!acc) {
 
 			if (req.body.name.match(/[a-zA-Z] [a-zA-Z]+/)) {
@@ -62,7 +61,7 @@ app.post("/signup", async function (req, res) {
 			res.json(result);
 		}
 	} finally {
-		await connection.$pool.end();
+		await connection.end();
 	}
 });
 

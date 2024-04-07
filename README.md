@@ -69,3 +69,7 @@ O modelo de dados está disponível em https://github.com/rodrigobranas/cccat16_
 - `yarn add express`
 - `yarn add nodemon`
 - `yarn add postgres`
+- `yarn add pgp`
+- `yarn add pg-promise`
+- `yarn add pg`
+- `yarn add @types/pg`

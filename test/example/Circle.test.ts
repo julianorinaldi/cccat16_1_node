@@ -1,4 +1,4 @@
-import Circle from "../src/Circle";
+import Circle from "../../src/example/Circle";
 
 test("Should calculate the area of circle", function () {
     const circle = new Circle(2);
