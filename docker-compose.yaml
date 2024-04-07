@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: branas
+      MYSQL_DATABASE: cccat16
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+    volumes:
+      - ./database/mysql:/var/lib/mysql
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+    ports:
+      - 8080:80
+    depends_on:
+      - mysql
+  flyway:
+    container_name: flyway
+    image: flyway/flyway
+    volumes:
+      - ./database/migrations:/flyway/sql
+      - ./database/scripts/:/flyway/scripts
+    entrypoint: ["sh", "-c", "/flyway/scripts/wait-for-it.sh mysql:3306 -t 60 -- /flyway/flyway -url=jdbc:mysql://mysql:3306/cccat16 -user=root -password=branas -locations=filesystem:/flyway/sql migrate"]
+    depends_on:
+      - mysql
