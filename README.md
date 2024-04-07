@@ -6,8 +6,6 @@ Esta documentação prevê o passo a passo de como foi montado o projeto, para e
 
 Deixarei o repositório público, mas objetivo é para meu estudo, minhas reflexões, meu jeito de fazer as coisas. 
 
-
-
 ## Etapa 1 - Preparando Ambiente
 
 A linguagem a ser utilizada no andamento do curso será Node.js, usando typescript. Não é obrigatório a usá-la, mas deve selecionar uma linguagem que tenha pelo menos Orientação a Objetos. Utilizarei o Node.js como aprendizado, para mim será interessante conhecer já que não tenho experiência nenhuma com ela.
@@ -32,7 +30,7 @@ Projeto em Node.js, utilizando typescript.
 
 Utilizando as técnicas de refactoring que vimos na aula, refatore o código do UC1 - Signup, disponível em:
 
-https://github.com/rodrigobranas/cccat16_1/blob/master/src/signup.ts
+https://github.com/rodrigobranas/cccat16_1/blob/master/src/api.ts
 
 ### UC1 - Signup
 Ator: Passageiro, Motorista
@@ -54,3 +52,20 @@ Observações:
 
 Crie uma API REST para interagir com os use cases criados por meio do protocolo HTTP e não se esqueça de também criar testes para a API.
 O modelo de dados está disponível em https://github.com/rodrigobranas/cccat16_1/blob/master/create.sql
+
+### Alterações no Projeto
+
+1. Criei um docker-compose.yaml para subir 3 containers iniciais
+- postgress
+  - Deixe banco com volume na máquina, assim ele vai manter os dados depois que eu derrubar o container.
+  - Os scripts de migration ficarão nas pasta `./database/migrations`
+- phpmyadmin (client para acesso a gerenciamento de banco)
+- flyway (para começar versionar scripts de banco)
+  - Tive que adapatar algumas coisas para rodar o Flyway depois de levantar o banco, pois tudo está em container, tem que esperar ele abrir as conexões para poder conectar e atualizar o migration. Observe isso no container `flyway` dentro do `docker-compose.yaml`, utilizei o script `./scripts/wait-for-it.sh` retirado de `https://github.com/vishnubob/wait-for-it`
+
+1. Bibliotecas instaladas que achei no projeto exemplo:
+- `yarn add @types/express`
+- `yarn add axios`
+- `yarn add express`
+- `yarn add nodemon`
+- `yarn add postgres`
